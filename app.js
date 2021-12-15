@@ -1,7 +1,7 @@
-const express = require('express');
+PORT=3001
+require("dotenv").config();
+const Server = require('./server')
 
-const app = express();
+const server = new Server;
 
-app.get('/',function(req, res){res.send('Hola Alex');});
-
-app.listen(3000);
+server.listen();
