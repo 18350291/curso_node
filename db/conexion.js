@@ -8,6 +8,8 @@ const config = {
     connectionLimit: 10,
 };
 
+console.log(config);
+
 const pool = mariadb.createPool(config);
 
 module.exports = pool;
