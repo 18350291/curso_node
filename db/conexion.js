@@ -4,7 +4,7 @@ const config = {
     host: localhost,
     user: nodeUser,
     password: nodeUser,
-    database: nodeUser,
+    database: nodeuser,
     connectionLimit: 10,
 };
 
