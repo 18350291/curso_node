@@ -1,5 +1,8 @@
 const { request, response } = require("express");
+const pool = require ("../db/conexion");
 const usuariosQueries = require("../models/usuarios");
+const bcrypt = require("bcryptjs");
+const bcryptjs = require("bcryptjs");
 
 const usuariosGet = async (req = request, res = response) => {
     let conn;
@@ -23,12 +26,20 @@ const usuariosGet = async (req = request, res = response) => {
 
 const usuariosPost = async (req = request, res = response) => {
     const { nombre, email, password, status = 1 }= req.body;
-    //res.status(201).json({ msg: "Hola a todos desde POST", edad });
+    
     let conn;
 
     try{
+        const salt = bcryptjs.genSaltSync();
+        const passwordHash = bcryptjs.hashSync(password, salt);
+
         conn = await Pool.getConnection();
-        const usuarios = await conn.query(usuariosQueries.insertUsuario,[nombre, email,password, status]); 
+        const usuarios = await conn.query(usuariosQueries.insertUsuario,[
+            nombre, 
+            email,
+            passwordHash, 
+            status
+        ]); 
         res.json({usuarios})
     }catch(error){
         console.log(error);
